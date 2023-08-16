@@ -1,29 +1,32 @@
 # DisceteBarChart for MFC
 
-针对Hight-Speed Charting不能离散显示横坐标的问题，重新设计实现了一款MFC下可以自定义x轴的柱状图。
+Aiming at the issue of inability to discretely display the horizontal axis in High-Speed Charting, a redesigned solution has been implemented to create a customizable bar chart under MFC.
 
-还有海量bug与不足之处，仅能实现基本的显示需求，后续有空会继续开发更新。
+Basic display requirements have been fulfilled, but there are numerous bugs and shortcomings. I will continue to develop and update the application when time permits
 
-喜欢这个项目别忘了给颗⭐
+If you like this project, don't forget to give it a ⭐!
 
-- 示例
+- Example:
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/8961600ccec8435a9668d97ecfd642f0.png)
 
-- 按y轴数据大小排序
+- Sorting by Y-axis Data Magnitude.
 
 ![按y数据排序](https://img-blog.csdnimg.cn/296d678a12914b15bc035cec8bf3c91e.png)
 
 ## Top News
 
-**`2023-8-16 `**:**更新了坐标轴轴例显示**
+**`2023-8-16 `**:**Updated the axis legend display.**
 
 <img src="https://img-blog.csdnimg.cn/599e2c0d017a4a96afc7a80dd37d4837.png" alt="在这里插入图片描述"  />
 
-## 使用
+## How To Use
 
-1. 首先创建一个Picture Control控件
-2. 在你的MFC对话框的OnPaint()函数中添加如下代码
+1. First, create a **Picture Control** widget.
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/491ed22613b84b2e924f44fa24fd9dd6.png)
+
+2. Add the following code to the OnPaint() function of the MFC dialog:
 
 ```cpp
 void YourDlg::OnPaint()
@@ -31,24 +34,24 @@ void YourDlg::OnPaint()
 	CPaintDC dc(this); // device context for painting
 					   // TODO: 在此处添加消息处理程序代码
 					   // 不为绘图消息调用 CDialogEx::OnPaint()
-	// 模拟数据
+	// Simulated data
 	unordered_map<string, int> testData;
 	testData.emplace("apple", 31);
 	testData.emplace("B", 123);
 	testData.emplace("c", 70);
 	testData.emplace("1", 62);
 	testData.emplace("99", 79);
-	// 1. 获取控件用户区域
+	// 1. Get clientRect and pDC
 	CRect clientRect;
 	GetDlgItem(IDC_STATIC)->GetClientRect(clientRect);
 	CDC* pDC = GetDlgItem(IDC_STATIC)->GetDC();
-	// 2.创建
+	// 2. Create barchart
 	DiscreteBarChart barChart;
 	barChart.create(pDC, clientRect);
-	// 3.设置一些参数
+	// 3. Set some parameters.
 	barChart.setTitle("discrete bar chart");
 	barChart.setDrawValueOnTop(true);
-	// 4. 绘图
+	// 4. Draw
 	barChart.Draw(testData);
 
 	CDialogEx::OnPaint();
@@ -56,11 +59,11 @@ void YourDlg::OnPaint()
 }
 ```
 
-仅有一个绘图函数
+Currently, there is only one drawing function.
 
 ```cpp
 void Draw(std::unordered_map<std::string, int>& data);
 ```
 
-std::string为x轴数据，int为对应的y轴数据。 
+Use `std::string` for the X-axis data and `int` for the corresponding Y-axis data.
 
