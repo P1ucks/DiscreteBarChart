@@ -19,7 +19,7 @@ DiscreteBarChart::DiscreteBarChart()
 	// 黑色表名
 	titleColor[0] = 0; titleColor[1] = 0; titleColor[2] = 0;
 	// 黑色图例
-	axisLabelColor[0] = 0; axisLabelColor[1] = 0; axisLabelColor[2] = 0;
+	axisLegendColor[0] = 0; axisLegendColor[1] = 0; axisLegendColor[2] = 0;
 
 	axisFont.CreateFont(
 		16,                     // 字体高度
@@ -121,21 +121,21 @@ void DiscreteBarChart::Draw(std::unordered_map<std::string, int>& data)
 
 	// y轴图例
 	pOldFont = pDC->SelectObject(&axisLabelFont);
-	pDC->SetTextColor(RGB(axisLabelColor[0], axisLabelColor[1], axisLabelColor[2]));
+	pDC->SetTextColor(RGB(axisLegendColor[0], axisLegendColor[1], axisLegendColor[2]));
 	pDC->SetBkMode(TRANSPARENT); // Set background mode to transparent
-	CSize yAxisLabelSize = pDC->GetTextExtent(yAxisLabel);
+	CSize yAxisLabelSize = pDC->GetTextExtent(yAxisLegend);
 	int yLabelPos = clientRect.Height() / 2 + 20 - yAxisLabelSize.cx/2;
-	yAxisLabelSize.cx = yAxisLabelSize.cx / yAxisLabel.GetLength()+10;
+	yAxisLabelSize.cx = yAxisLabelSize.cx / yAxisLegend.GetLength()+10;
 
-	for (int i = 0; i < yAxisLabel.GetLength(); i++) {
-		CString character = yAxisLabel.Mid(i, 1);
+	for (int i = 0; i < yAxisLegend.GetLength(); i++) {
+		CString character = yAxisLegend.Mid(i, 1);
 		pDC->TextOutW(8, yLabelPos, character);
 		yLabelPos += 15; // 增加 Y 坐标，使文字竖向排列
 	}
 	// x轴图例
 	int xLabelPos = clientRect.Width() / 2;
-	CSize xAxisLabelSize = pDC->GetTextExtent(yAxisLabel);
-	pDC->TextOutW(xLabelPos, clientRect.bottom-xAxisLabelSize.cy-5, xAxisLabel);
+	CSize xAxisLabelSize = pDC->GetTextExtent(yAxisLegend);
+	pDC->TextOutW(xLabelPos, clientRect.bottom-xAxisLabelSize.cy-5, xAxisLegend);
 
 	// 还原字体颜色
 	pDC->SelectObject(pOldFont);
@@ -394,14 +394,14 @@ void DiscreteBarChart::setYAxisNum(int i)
 	yAxisNum = i;
 }
 
-void DiscreteBarChart::setYAxisLabel(char* y)
+void DiscreteBarChart::setYAxisLegend(char* y)
 {
-	yAxisLabel = y;
+	yAxisLegend = y;
 }
 
-void DiscreteBarChart::setXAxisLabel(char* x)
+void DiscreteBarChart::setXAxisLegend(char* x)
 {
-	xAxisLabel = x;
+	xAxisLegend = x;
 }
 
 void DiscreteBarChart::ComputeYAxisNum()
@@ -434,11 +434,11 @@ void DiscreteBarChart::setTitleColor(int r, int g, int b)
 	titleColor[2] = b;
 }
 
-void DiscreteBarChart::setAxisLabelColor(int r, int g, int b)
+void DiscreteBarChart::setAxisLegendColor(int r, int g, int b)
 {
-	axisLabelColor[0] = r;
-	axisLabelColor[1] = g;
-	axisLabelColor[2] = b;
+	axisLegendColor[0] = r;
+	axisLegendColor[1] = g;
+	axisLegendColor[2] = b;
 }
 
 

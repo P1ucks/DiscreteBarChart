@@ -24,21 +24,21 @@ public:
 	void setValueColor(int r, int g, int b);
 	void setaxisScaleColor(int r, int g, int b);
 	void setTitleColor(int r, int g, int b);
-	void setAxisLabelColor(int r, int g, int b);
+	void setAxisLegendColor(int r, int g, int b);
 	void setValueFont(CFont& font);
 	void setAxisFont(CFont& font);
 	void setTitleFont(CFont& font);
 	void setTitle(char* title);
 	void setYAxisNum(int yAxisNum);
-	void setYAxisLabel(char* yAxisLabel);
-	void setXAxisLabel(char* xAxisLabel);
+	void setYAxisLegend(char* yAxisLabel);
+	void setXAxisLegend(char* xAxisLabel);
 private:
 	void ComputeYAxisNum();
 private:
 	CDC* pDC;
 	CRect backgroundRect,clientRect;
 	CFont axisFont, valueFont, titleFont, axisLabelFont;
-	CString title, yAxisLabel, xAxisLabel;
+	CString title, yAxisLegend, xAxisLegend;
 	// 排序
 	bool sortByValue;
 	// 数据上标
@@ -54,7 +54,7 @@ private:
 	// 轴刻度颜色
 	int axisScaleColor[3];
 	// 图例颜色
-	int axisLabelColor[3];
+	int axisLegendColor[3];
 	// 图表名颜色
 	int titleColor[3];
 	// y轴刻度数
